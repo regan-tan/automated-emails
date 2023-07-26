@@ -5,13 +5,13 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 # environment variables
-os.getenv("API_KEY")
+API_KEY=os.getenv("API_KEY")
 
 class NewsFeed:
     """Representing multiple news titles and links an s a single string
     """
     base_url = "https://newsapi.org/v2/everything?"
-    api_key = "API_KEY"
+    api_key = API_KEY
 
     def __init__(self, interest, from_date, to_date, language='en'):
         self.interest = interest
@@ -37,6 +37,6 @@ class NewsFeed:
 
         return email_body
 
-if __name__ == "__maiin__":    
+if __name__ == "__main__":    
     news_feed = NewsFeed(interest='nasa', from_date='2023-07-14', to_date='2023-07-16', language='en')
     print(news_feed.get())
