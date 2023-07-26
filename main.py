@@ -16,7 +16,7 @@ smtp_server = "smtp.gmail.com"
 smtp_port = 587
 df = pandas.read_excel('people.xlsx')
 
-for index, row in df.iterrows():
+def send_email(EMAIL_ADDR, EMAIL_PW, smtp_server, smtp_port, row):
     yesterday = (datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')
     today = datetime.datetime.now().strftime('%Y-%m-%d')
     news_feed = NewsFeed(interest=row['interest'], from_date=yesterday, to_date=today)
@@ -25,3 +25,6 @@ for index, row in df.iterrows():
     email.send(to=row['Email'], 
                 subject=f"Your {row['interest']} news for today!",
                 contents=f"Hi {row['Name']}\n See what's on about {row['interest']} today. \n{news_feed.get()} \nRegan")
+
+for index, row in df.iterrows():
+    send_email(EMAIL_ADDR, EMAIL_PW, smtp_server, smtp_port, row)
